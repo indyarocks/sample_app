@@ -1,65 +1,44 @@
 require 'spec_helper'
 
 describe "Static Pages" do
-  let(:title_first) {"Ruby on Rails Tutorial Same App"}
+
+  subject { page }
 
   describe "Home page" do
-    it "should have the content 'Sample App' " do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      visit '/static_pages/home'
-      expect(page).to have_content('Sample App')
-    end
+    before { visit root_path }
 
-    it "should have the base title" do
-    	visit '/static_pages/home'
-    	expect(page).to have_title(title_first)
-    end	
+    it { should have_content('Sample App')}
 
-    it "should not have a custom page title" do
-      visit '/static_pages/home'
-      expect(page).not_to have_title('| Home')
-    end
+    it { should have_title(full_title(''))}	
+
+    it { should_not have_title('| Home')}
+    
   end
 
   describe "Help Page" do
-    let(:title_last) {"Help"}
+    before { visit help_path }
     
-    it "should have the content, 'Help' " do
-    	visit '/static_pages/help'
-    	expect(page).to have_content('Help')
-    end
+    it { should have_content('Help')}
 
-    it "should have the right title" do
-    	visit '/static_pages/help'
-      expect(page).to have_title("#{title_first} | #{title_last}")
-    end	
+    it { should have_title(full_title('Help'))}
+    	
   end  
 
   describe "About page" do
-    let(:title_last) {"About Us"}
+    before { visit about_path }
 
-  	it "should have content 'About Us'" do
-  		visit '/static_pages/about'
-  		expect(page).to have_content('About Us')
-  	end
+  	it { should have_content('About Us')}
 
-  	it "should have the right title" do
-    	visit '/static_pages/about'
-      expect(page).to have_title("#{title_first} | #{title_last}")
-    end	
+  	it { should have_title(full_title('About'))}
+    		
   end
 
   describe "Contact page" do
-    let(:title_last){"Contact Us"}
+    before { visit contact_path }
 
-    it "should have content'Contact Us'" do
-      visit '/static_pages/contact'
-      expect(page).to have_content('Contact Us')
-    end
+    it { should have_content('Contact Us')}
 
-    it "should have right title" do
-      visit '/static_pages/contact'
-      expect(page).to have_title("#{title_first} | #{title_last}")
-    end
+    it { should have_title(full_title('Contact'))}
+      
   end
 end
