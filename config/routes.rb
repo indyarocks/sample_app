@@ -59,4 +59,5 @@ SampleApp::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  match ':invalid_url', to: "static_pages#home" , :constraints => { :invalid_url => /.*/ }, via: :all
 end
