@@ -1,5 +1,5 @@
 SampleApp::Application.routes.draw do
-  get "users/new"
+  resources :users
   root "static_pages#home"
   match '/help', to: "static_pages#help", via: 'get'
   match '/about', to: "static_pages#about", via: 'get'
@@ -59,5 +59,5 @@ SampleApp::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  match ':invalid_url', to: "static_pages#home" , :constraints => { :invalid_url => /.*/ }, via: :all
+  #match ':invalid_url', to: "static_pages#home" , :constraints => { :invalid_url => /.*/ }, via: :all
 end

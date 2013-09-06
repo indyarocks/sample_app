@@ -100,7 +100,7 @@ describe User do
     it "should downcase and save email address" do
       @user.email = mixed_case_email
       @user.save
-      expect(@user.reload.email).should eq mixed_case_email.downcase
+      expect(@user.reload.email).to eq mixed_case_email.downcase
     end
   end
 end
