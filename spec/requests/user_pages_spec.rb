@@ -42,6 +42,9 @@ describe "User Pages" do
         end
         it { should have_content("Name can't be blank")}
 
+        it { should have_title('Sign Up')}
+        it { should have_content('error')}
+
       end
     end
 
