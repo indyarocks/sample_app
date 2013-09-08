@@ -6,8 +6,9 @@
     <a href="http://blog.chandanj.com" target="_blank">My Personal Blog</a>,
     <a href="http://chandanj.com/" target="_blank">My Site in beta phase</a>,
   </h2>
-
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+  <% unless signed_in? %>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+  <% end %>
 
 </div>
 
