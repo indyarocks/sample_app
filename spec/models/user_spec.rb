@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe User do
-  before { @user = User.new(name: "Chandan", email: "chandan.jhun@gmail.com",
+  before { @user = User.new(name: "Chandan", email: "user@spec.com",
                             password: "foobar", password_confirmation: "foobar")}
 
   subject { @user }
@@ -12,6 +12,7 @@ describe User do
   it { should respond_to(:password)}
   it { should respond_to(:password_confirmation)}
   it { should respond_to(:authenticate)}
+  it { should respond_to(:remember_token)}
 
   it { should be_valid }
 
@@ -78,6 +79,7 @@ describe User do
     let(:found_user) { User.find_by(email: @user.email)}
 
     describe "authenticate for valid password" do
+      before { @user.save }
       it { should eq found_user.authenticate(@user.password)}
     end
 
@@ -102,5 +104,11 @@ describe User do
       @user.save
       expect(@user.reload.email).to eq mixed_case_email.downcase
     end
+  end
+
+  describe "remember token" do
+    before { @user.save }
+    #it {expect(@user.remember_token).not_to be_blank}
+    its(:remember_token) {should_not be_blank}
   end
 end

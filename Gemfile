@@ -18,6 +18,9 @@ group :test do
   gem 'capybara', '2.1.0'
   gem 'growl', '1.0.3'
   gem 'factory_girl_rails', '4.2.1'
+  gem 'database_cleaner', '<1.1.0'
+  gem "launchy", "2.3.0"
+  gem 'cucumber-rails', '1.4.0', :require => false
 end    
 
 # Use SCSS for stylesheets
