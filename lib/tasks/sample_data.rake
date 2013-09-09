@@ -19,7 +19,7 @@ namespace :db do
     99.times do |n|
       name = Faker::Name.name
       email = Faker::Internet.email
-      password = rand(36**10).to_s(36)
+      password = rand(36**10).to_s(36)  # Generate random password for each user :P
       User.create!(
           name: name,
           email: email,
