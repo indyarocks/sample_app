@@ -6,7 +6,8 @@
 namespace :db do
   desc "Populate Users table with sample data"
   # populate_users task loads the environments, resets the db and populate users.
-  task populate_users: [:environment, :reset] do
+  task populate_users: [:environment] do
+    puts "\n\nPlease run 'rake db:reset' before this rake task.\n\n"
     User.create!(
         name: "Chandan Kumar",
         email: "chandan.jhun@gmail.com",
