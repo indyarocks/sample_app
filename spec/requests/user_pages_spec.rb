@@ -39,6 +39,11 @@ describe "User Pages" do
         end
 
         it { should have_link("delete", href: user_path(User.first))}
+
+        describe "submitting a DELETE request to User#destroy action for self" do
+          it { expect{delete user_path(admin_user)}.to_not change(User, :count).by(-1)}
+        end
+
         it "should be able to delete another user" do
           expect do
             click_link("delete", match: :first)
@@ -46,17 +51,6 @@ describe "User Pages" do
         end
 
         it {should_not have_link("delete", href: user_path(admin_user))}
-
-        #describe "submitting a DELETE request to User#destroy action for self" do
-        #  let(:admin_user) { FactoryGirl.create(:admin)}
-        #  before do
-        #    sign_in admin_user
-        #    delete user_path(admin_user)
-        #    save_and_open_page
-        #  end
-        #
-        #  specify{ expect(response).to redirect_to(root_url)}
-        #end
       end
 
       describe "as non-admin user" do
@@ -172,6 +166,19 @@ describe "User Pages" do
       specify{ expect(user.reload.name).to eq new_name}
       specify{ expect(user.reload.email).to eq new_email}
 
+    end
+
+    describe "forbidden attributes" do
+      let(:params) do { user: { admin: true, password: user.password,
+                             password_confirmation: user.password_confirmation}}
+      end
+
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+
+      specify { expect(user.reload).not_to be_admin}
     end
   end
 end
