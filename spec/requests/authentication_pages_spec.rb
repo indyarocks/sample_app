@@ -45,6 +45,30 @@ describe "Authentication" do
       it { should have_link('Sign out', href: signout_path)}
       it { should_not have_link('Sign In', href: signin_path)}
 
+      #describe "should redirect a logged in user to root url if user tries to hit new in users controller" do
+      #  let(:user) {FactoryGirl.create(:user)}
+      #  before do
+      #    sign_in user
+      #    get new_user_path
+      #  end
+      #
+      #  specify{expect(response).to redirect_to(root_url)}
+      #end
+      #
+      #describe "should redirect a logged in user to root url if user tries to hit create in users controller" do
+      #  let(:params) do {user: {name: "Tester", email: "test@example.com", password: "password",
+      #                          password_confirmation: "password"}}
+      #  end
+      #  let(:user) {FactoryGirl.create(:user)}
+      #
+      #  before do
+      #    sign_in user
+      #    post users_path, params
+      #  end
+      #
+      #  specify{expect(response).to redirect_to(root_url)}
+      #end
+
         describe "followed by signout" do
           before { click_link "Sign out"}
           it { should have_link("Sign In")}
@@ -91,6 +115,20 @@ describe "Authentication" do
         describe "after signing in" do
           it "should render the desired protected page" do
             expect(page).to have_title("Edit user")
+          end
+
+          describe "when signing in again" do
+            before do
+              delete user_path(user)
+              sign_in user
+            end
+
+            it { should have_content(user.name)}
+            it { should have_link('Users', href: users_path)}
+            it { should have_link('Profile', href: user_path(user))}
+            it { should have_link('Settings', href: edit_user_path(user))}
+            it { should have_link('Sign out', href: signout_path)}
+            it { should_not have_link('Sign In', href: signin_path)}
           end
         end
       end

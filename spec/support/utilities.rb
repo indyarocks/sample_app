@@ -24,7 +24,7 @@ def fill_valid_signup_details
     fill_in "Name", with: "Chandan Kumar"
     fill_in "Email", with: "chandan.jhun@example.com"
     fill_in "Password", with: "foobar"
-    fill_in "Confirmation", with: "foobar"
+    fill_in "Confirm Password", with: "foobar"
 end
 
 #def full_title(page_title)
