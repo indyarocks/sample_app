@@ -8,7 +8,7 @@ describe ApplicationHelper do
     end
 
     it "should have default base title" do
-      expect(full_title("foo")).to match(/^Ruby on Rails Tutorial Sample App/)
+      expect(full_title("foo")).to match(/^Ruby on Rails Sample App/)
     end
 
     it "should not have page title for home page" do

@@ -132,6 +132,23 @@ describe "Authentication" do
           end
         end
       end
+
+      describe "in microposts controller" do
+
+        describe "submitting to the create action" do
+          let(:params) { {content: 'foobar', user_id: user.id} }
+
+          before { post microposts_path, params}
+          specify { expect(response).to redirect_to(signin_path)}
+        end
+
+        describe "when attempting to destroy a micropost" do
+          let!(:micropost) {FactoryGirl.create(:micropost, user: user)}
+          before {delete micropost_path(micropost)}
+
+          specify { expect(response).to redirect_to(signin_path)}
+        end
+      end
     end
 
     describe "as wrong user" do

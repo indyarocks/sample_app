@@ -14,7 +14,7 @@ group :development, :test do
   gem 'sqlite3', '1.3.7'
   gem 'rspec-rails', '2.13.1'
   gem 'guard-rspec', '2.5.0'
-  gem 'debugger', '1.6.1'
+  #gem 'debugger', '1.6.1'
   gem 'pry', '0.9.12.2'
 end
 
