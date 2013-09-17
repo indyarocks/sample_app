@@ -6,8 +6,17 @@
 namespace :db do
   desc "Populate Users table with sample data"
   # populate_users task loads the environments, resets the db and populate users.
-  task populate_users: [:environment] do
+  task populate_sample_data: [:environment] do
     puts "\n\nPlease run 'rake db:reset' before this rake task.\n\n"
+
+    make_users
+    make_microposts
+    make_relationships
+
+    puts "\n\nPlease run 'rake test:prepare' to setup test db.\n\n"
+  end
+
+  def make_users
     User.create!(
         name: "Chandan Kumar",
         email: "chandan.jhun@gmail.com",
@@ -27,14 +36,23 @@ namespace :db do
           password_confirmation: password
       )
     end
+  end
 
+  def make_microposts
     users = User.all(limit: 6)
 
     50.times do
       content = Faker::Lorem.sentence(5)
       users.each {|user| user.microposts.create!(content: content)}
     end
+  end
 
-    puts "\n\nPlease run 'rake test:prepare' to setup test db.\n\n"
+  def make_relationships
+    users = User.all
+    user = User.first
+    followed_users = users[2..50]
+    followers = users[3..40]
+    followed_users.each {|followed| user.follow!(followed)}
+    followers.each {|follower| follower.follow!(user)}
   end
 end
