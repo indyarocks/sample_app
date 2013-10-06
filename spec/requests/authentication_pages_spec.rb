@@ -101,6 +101,31 @@ describe "Authentication" do
           before { visit users_path }
           it { should have_title('Sign In')}
         end
+
+        describe "visiting the following page" do
+          before { visit following_user_path(user)}
+          it { should have_title('Sign In')}
+        end
+
+        describe "visiting the followers page" do
+          before { visit followers_user_path(user)}
+          it { should have_title('Sign In')}
+        end
+
+        describe "in relationship controller" do
+
+          describe "create a new relationship" do
+            before { post relationships_path}
+
+            specify {expect(response).to redirect_to(signin_path)}
+          end
+
+          describe "destory a relationship" do
+            before { delete relationship_path(1)}
+
+            specify {expect(response).to redirect_to(signin_path)}
+          end
+        end
       end
 
       describe "when attempting to visit a protected page" do
